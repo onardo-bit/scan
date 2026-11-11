@@ -1,0 +1,208 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: var(--font-space-grotesk), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  --color-void: #04070d;
+  --color-panel: #0a101c;
+  --color-panel2: #0d1626;
+  --color-line: rgba(148, 184, 255, 0.09);
+  --color-ink: #e8f0ff;
+  --color-dim: #8ba3c7;
+  --color-faint: #55688c;
+  --color-ton: #55b8ff;
+  --color-mint: #3ef2c0;
+  --color-rose: #ff5d7a;
+  --color-amber: #ffc05a;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background:
+    radial-gradient(1200px 800px at 85% -10%, rgba(85, 184, 255, 0.09), transparent 60%),
+    radial-gradient(900px 700px at -10% 30%, rgba(62, 242, 192, 0.05), transparent 55%),
+    #04070d;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(85, 184, 255, 0.35);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(120, 160, 220, 0.18);
+  border-radius: 8px;
+  border: 2px solid #04070d;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ---------- shared surfaces ---------- */
+
+.glass {
+  background: linear-gradient(165deg, rgba(19, 30, 52, 0.72), rgba(9, 15, 28, 0.82));
+  border: 1px solid var(--color-line);
+  backdrop-filter: blur(14px);
+}
+
+.glass-hover {
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s,
+    box-shadow 0.35s;
+}
+.glass-hover:hover {
+  transform: translateY(-3px);
+  border-color: rgba(85, 184, 255, 0.35);
+  box-shadow: 0 18px 50px -18px rgba(85, 184, 255, 0.28);
+}
+
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(120, 170, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(120, 170, 255, 0.045) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 30%, transparent 75%);
+}
+
+.noise::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  z-index: 60;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+.text-gradient {
+  background: linear-gradient(100deg, #eaf3ff 20%, #7cc6ff 55%, #3ef2c0 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- motion ---------- */
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.rise {
+  animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: marquee 42s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes blinkdot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+.live-dot {
+  animation: blinkdot 1.6s ease-in-out infinite;
+}
+
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+.floaty {
+  animation: floaty 6s ease-in-out infinite;
+}
+
+/* ---------- telegram simulator ---------- */
+
+.tg-chat {
+  background: #0e1621;
+}
+.tg-bubble {
+  background: #182533;
+  border-radius: 14px 14px 14px 4px;
+}
+.tg-bubble-own {
+  background: #2b5278;
+  border-radius: 14px 14px 4px 14px;
+}
+
+.tg-btn {
+  background: rgba(255, 255, 255, 0.06);
+  transition: background 0.15s;
+}
+.tg-btn:hover {
+  background: rgba(120, 170, 255, 0.18);
+}
+.tg-btn:active {
+  background: rgba(120, 170, 255, 0.28);
+}
+
+/* ---------- inputs ---------- */
+
+.input-dark {
+  background: rgba(10, 18, 34, 0.8);
+  border: 1px solid var(--color-line);
+  transition:
+    border-color 0.25s,
+    box-shadow 0.25s;
+}
+.input-dark:focus {
+  outline: none;
+  border-color: rgba(85, 184, 255, 0.55);
+  box-shadow: 0 0 0 3px rgba(85, 184, 255, 0.12);
+}
+
+.btn-glow {
+  background: linear-gradient(120deg, #1c7dff, #28c7f8 60%, #3ef2c0);
+  color: #04121f;
+  font-weight: 600;
+  transition:
+    filter 0.25s,
+    transform 0.25s;
+}
+.btn-glow:hover {
+  filter: brightness(1.12);
+  transform: translateY(-1px);
+}
+.btn-glow:active {
+  transform: translateY(0);
+}
